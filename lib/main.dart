@@ -24,13 +24,20 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
+  String _data = '';
   fetchData() async{
     var url = Uri.parse("https://jsonplaceholder.typicode.com/posts");
     var response = await http.get(url);
     if(response.statusCode == 200){
       print("DATA FETCHED SUCCESSFULLY: ${response.body}");
+      setState(() {
+        _data = response.body;
+      });
     }else{
       print("DATA FETCH FAILED: ${response.body}");
+      setState(() {
+        _data = "DATA FETCH FAILED";
+      });
     }
   }
   @override
@@ -52,7 +59,7 @@ class _HomePageState extends State<HomePage> {
           ElevatedButton(onPressed: (){}, child: Text("Delete Data")),
                 ],
               ),
-              Expanded(child: SingleChildScrollView(child: Text("DATA WILL BE HERE")))
+              Expanded(child: SingleChildScrollView(child: Text(_data)))
             ]
           )
         ),
