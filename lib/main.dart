@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:http/http.dart' as http;
 
 void main() {
   runApp(const MyApp());
@@ -15,9 +16,23 @@ class MyApp extends StatelessWidget {
     );
   }
 }
-class HomePage extends StatelessWidget {
+class HomePage extends StatefulWidget {
   const HomePage({super.key});
 
+  @override
+  State<HomePage> createState() => _HomePageState();
+}
+
+class _HomePageState extends State<HomePage> {
+  fetchData() async{
+    var url = Uri.parse("https://jsonplaceholder.typicode.com/posts");
+    var response = await http.get(url);
+    if(response.statusCode == 200){
+      print("DATA FETCHED SUCCESSFULLY: ${response.body}");
+    }else{
+      print("DATA FETCH FAILED: ${response.body}");
+    }
+  }
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -32,7 +47,7 @@ class HomePage extends StatelessWidget {
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceAround,
                 children: [
-          ElevatedButton(onPressed: (){}, child: Text("Fetch Data")),
+          ElevatedButton(onPressed: fetchData, child: Text("Fetch Data")),
           ElevatedButton(onPressed: (){}, child: Text("Create Data")),
           ElevatedButton(onPressed: (){}, child: Text("Delete Data")),
                 ],
