@@ -25,18 +25,50 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
   String _data = '';
-  fetchData() async{
+  Future<void> fetchData() async{
     var url = Uri.parse("https://jsonplaceholder.typicode.com/posts");
     var response = await http.get(url);
-    if(response.statusCode == 200){
-      print("DATA FETCHED SUCCESSFULLY: ${response.body}");
+    if(response.statusCode == 200 || response.statusCode ==201){
       setState(() {
-        _data = response.body;
+        _data ="DATA FETCHED SUCCESSFULLY" + response.body;
       });
     }else{
       print("DATA FETCH FAILED: ${response.body}");
       setState(() {
         _data = "DATA FETCH FAILED";
+      });
+    }
+  }
+
+  Future<void> createData() async{
+    var url = Uri.parse("https://jsonplaceholder.typicode.com/posts");
+    var response = await http.post(url, body: {
+      "title": "foo",
+      "body": "bar",
+      "userId": "1"
+    });
+
+    if(response.statusCode == 200 || response.statusCode ==201){
+      setState(() {
+        _data ="DATA CREATE SUCCESSFULLY " + response.body;
+      });
+    }else{
+      setState(() {
+        _data = "DATA CREATION FAILED" + response.body;
+      });
+    }
+  }
+
+  Future<void> deleteData() async{
+    var url = Uri.parse("https://jsonplaceholder.typicode.com/posts/102");
+    var response = await http.delete(url);
+    if(response.statusCode == 200 || response.statusCode ==201){
+      setState(() {
+        _data ="DATA DROP SUCCESSFULLY";
+      });
+    }else{
+      setState(() {
+        _data = "DATA DROP FAILED " + response.body;
       });
     }
   }
@@ -55,8 +87,8 @@ class _HomePageState extends State<HomePage> {
                 mainAxisAlignment: MainAxisAlignment.spaceAround,
                 children: [
           ElevatedButton(onPressed: fetchData, child: Text("Fetch Data")),
-          ElevatedButton(onPressed: (){}, child: Text("Create Data")),
-          ElevatedButton(onPressed: (){}, child: Text("Delete Data")),
+          ElevatedButton(onPressed: createData, child: Text("Create Data")),
+          ElevatedButton(onPressed: deleteData, child: Text("Delete Data")),
                 ],
               ),
               Expanded(child: SingleChildScrollView(child: Text(_data)))
