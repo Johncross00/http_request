@@ -10,7 +10,7 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
+    return const MaterialApp(
       debugShowCheckedModeBanner: false,
       home: HomePage(),
     );
@@ -75,7 +75,7 @@ class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text("HTTP REQUEST"),
+      appBar: AppBar(title: const Text("HTTP REQUEST"),
       centerTitle: true,),
       body: Center(
         child: Container(
@@ -86,9 +86,9 @@ class _HomePageState extends State<HomePage> {
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceAround,
                 children: [
-          ElevatedButton(onPressed: fetchData, child: Text("Fetch Data")),
-          ElevatedButton(onPressed: createData, child: Text("Create Data")),
-          ElevatedButton(onPressed: deleteData, child: Text("Delete Data")),
+          ElevatedButton(onPressed: fetchData, child: const Text("Fetch Data")),
+          ElevatedButton(onPressed: createData, child: const Text("Create Data")),
+          ElevatedButton(onPressed: deleteData, child: const Text("Delete Data")),
                 ],
               ),
               Expanded(child: SingleChildScrollView(child: Text(_data)))
