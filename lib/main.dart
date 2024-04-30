@@ -30,7 +30,7 @@ class _HomePageState extends State<HomePage> {
     var response = await http.get(url);
     if(response.statusCode == 200 || response.statusCode ==201){
       setState(() {
-        _data ="DATA FETCHED SUCCESSFULLY" + response.body;
+        _data ="DATA FETCHED SUCCESSFULLY {response.body}";
       });
     }else{
       setState(() {
@@ -49,11 +49,11 @@ class _HomePageState extends State<HomePage> {
 
     if(response.statusCode == 200 || response.statusCode ==201){
       setState(() {
-        _data ="DATA CREATE SUCCESSFULLY " + response.body;
+        _data ="DATA CREATE SUCCESSFULLY {response.body}";
       });
     }else{
       setState(() {
-        _data = "DATA CREATION FAILED" + response.body;
+        _data = "DATA CREATION FAILED {response.body}";
       });
     }
   }
@@ -67,7 +67,7 @@ class _HomePageState extends State<HomePage> {
       });
     }else{
       setState(() {
-        _data = "DATA DROP FAILED " + response.body;
+        _data = "DATA DROP FAILED {response.body}";
       });
     }
   }
