@@ -33,7 +33,6 @@ class _HomePageState extends State<HomePage> {
         _data ="DATA FETCHED SUCCESSFULLY" + response.body;
       });
     }else{
-      print("DATA FETCH FAILED: ${response.body}");
       setState(() {
         _data = "DATA FETCH FAILED";
       });
